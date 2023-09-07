@@ -9,5 +9,4 @@ public class ArtifactAppApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ArtifactAppApplication.class, args);
 	}
-
 }
