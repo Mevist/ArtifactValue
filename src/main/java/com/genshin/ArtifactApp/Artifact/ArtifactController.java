@@ -18,7 +18,7 @@ public class ArtifactController {
 
     @GetMapping
     public List<Artifact> getArtifacts() {
-        return artifactService.getArtifacts();
+        return artifactService.getAllArtifacts();
     }
 
     @PostMapping
@@ -29,4 +29,14 @@ public class ArtifactController {
     public void deleteArtifact(@PathVariable("artifactId") Long artifactId) {
         artifactService.deleteArtifact(artifactId);
     }
+
+    @PutMapping(path = "{artifactId}")
+    public void updateArtifact(
+            @PathVariable("artifactId") Long artifactId,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String mainStat)
+    {
+        artifactService.updateArtifact(artifactId, type, mainStat);
+    }
+
 }

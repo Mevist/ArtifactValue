@@ -2,8 +2,10 @@ package com.genshin.ArtifactApp.Artifact;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -16,7 +18,7 @@ public class ArtifactService {
         this.artifactRepository = artifactRepository;
     }
 
-    public List<Artifact> getArtifacts() {
+    public List<Artifact> getAllArtifacts() {
         return artifactRepository.findAll();
     }
 
@@ -32,11 +34,44 @@ public class ArtifactService {
         artifactRepository.save(artifact);
     }
 
-    public void deleteArtifact(Long artifactId) {
-        boolean exists = artifactRepository.existsById(artifactId);
-        if(!exists) {
+    @Transactional
+    public void updateArtifact(Long artifactId, String type, String mainStat){
+        Optional<Artifact>  optionalArtifactById = artifactRepository
+                .findArtifactById(artifactId);
+
+        if (optionalArtifactById.isEmpty()){
             throw new IllegalStateException(
-                    "student with id " + artifactId + " does not exists");
+                    "Artifact with id " + artifactId + " does not exists"
+            );
+        }
+
+        Artifact artifactById = optionalArtifactById.get();
+
+        if (type != null
+                && !type.isEmpty()
+                && !Objects.equals(artifactById.getType(), type))
+        {
+            Optional<Artifact> optionalArtifactByType = artifactRepository
+                    .findArtifactByType(type);
+            if (optionalArtifactByType.isPresent()){
+                throw new IllegalStateException("Type taken");
+            }
+
+            artifactById.setType(type);
+        }
+
+        if (mainStat != null
+                && !mainStat.isEmpty()
+                && !Objects.equals(artifactById.getMainStat(), mainStat)){
+            artifactById.setMainStat((mainStat));
+        }
+    }
+
+    public void deleteArtifact(Long artifactId) {
+        Optional<Artifact> artifact = artifactRepository.findArtifactById(artifactId);
+        if(artifact.isEmpty()) {
+            throw new IllegalStateException(
+                    "Artifact with id " + artifactId + " does not exists");
         }
         artifactRepository.deleteById(artifactId);
 

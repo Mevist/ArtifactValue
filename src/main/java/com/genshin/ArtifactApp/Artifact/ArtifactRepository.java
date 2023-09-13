@@ -12,4 +12,7 @@ public interface ArtifactRepository
 
     @Query("SELECT item FROM Artifact item WHERE item.type =?1")
     Optional<Artifact> findArtifactByType(String type);
+
+    @Query("SELECT item FROM Artifact item WHERE item.id =?1")
+    Optional<Artifact> findArtifactById(Long artifactId);
 }

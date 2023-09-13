@@ -3,6 +3,7 @@ package com.genshin.ArtifactApp.Artifact;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table
@@ -22,6 +23,7 @@ public class Artifact {
     private String mainStat;
     // Add a mainstat value
     @ElementCollection
+    @CollectionTable(name = "ARTIFACT_SUB_STATS", joinColumns = @JoinColumn(name = "artifact_id"))
     private List<ArtifactSubStat> subStats;
 
     public Artifact() {
@@ -82,17 +84,30 @@ public class Artifact {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Artifact artifact = (Artifact) o;
+        return Objects.equals(id, artifact.id) && Objects.equals(type, artifact.type) && Objects.equals(mainStat, artifact.mainStat) && Objects.equals(subStats, artifact.subStats);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, type, mainStat, subStats);
+    }
+
     @Embeddable
     public static class ArtifactSubStat {
         private String stat;
-        private float value;
+        private float statValue;
 
         public ArtifactSubStat() {
         }
 
         public ArtifactSubStat(String stat, float value) {
             this.stat = stat;
-            this.value = value;
+            this.statValue = value;
         }
 
         public String getStat() {
@@ -104,11 +119,11 @@ public class Artifact {
         }
 
         public float getValue() {
-            return value;
+            return statValue;
         }
 
         public void setValue(float value) {
-            this.value = value;
+            this.statValue = value;
         }
     }
 }
