@@ -32,8 +32,7 @@ public class ArtifactUpdateService {
         Artifact artifactById = optionalArtifactById.get();
 
         if (type != null
-                && !type.isEmpty()
-                && !Objects.equals(artifactById.getType(), type))
+                && !type.isEmpty())
         {
             Optional<Artifact> optionalArtifactByType = artifactRepository
                     .findArtifactByType(type);
