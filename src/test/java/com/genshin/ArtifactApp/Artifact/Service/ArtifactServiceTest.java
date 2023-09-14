@@ -1,5 +1,7 @@
-package com.genshin.ArtifactApp.Artifact;
+package com.genshin.ArtifactApp.Artifact.Service;
 
+import com.genshin.ArtifactApp.Artifact.Artifact;
+import com.genshin.ArtifactApp.Artifact.Repository.ArtifactRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

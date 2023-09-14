@@ -1,5 +1,6 @@
 package com.genshin.ArtifactApp.Artifact;
 
+import com.genshin.ArtifactApp.Artifact.Repository.ArtifactRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

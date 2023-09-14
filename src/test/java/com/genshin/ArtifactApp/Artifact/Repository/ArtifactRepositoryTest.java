@@ -1,5 +1,6 @@
-package com.genshin.ArtifactApp.Artifact;
+package com.genshin.ArtifactApp.Artifact.Repository;
 
+import com.genshin.ArtifactApp.Artifact.Artifact;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

@@ -1,5 +1,7 @@
-package com.genshin.ArtifactApp.Artifact;
+package com.genshin.ArtifactApp.Artifact.Controller;
 
+import com.genshin.ArtifactApp.Artifact.Artifact;
+import com.genshin.ArtifactApp.Artifact.Service.ArtifactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
