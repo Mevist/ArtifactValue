@@ -94,4 +94,18 @@ class ArtifactUpdateServiceTest {
 
     }
 
+    @Test
+    void willThrowWhenNotFoundById(){
+        Long artifactId = 1L;
+        String type = "Circlet";
+        String mainStat = null;
+
+        given(artifactRepository.findArtifactById(artifactId))
+                .willReturn(Optional.empty());
+
+        assertThatThrownBy(() -> underTest.updateArtifact(artifactId, type, mainStat))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("Artifact with id " + artifactId + " does not exists");
+    }
+
 }
